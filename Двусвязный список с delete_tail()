@@ -1,0 +1,21 @@
+class DoublyNode:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+        self.next = None
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+    
+    def delete_tail(self):
+        if not self.tail:
+            return None
+        deleted_data = self.tail.data
+        if self.head == self.tail:
+            self.head = self.tail = None
+        else:
+            self.tail = self.tail.prev
+            self.tail.next = None
+        return deleted_data
