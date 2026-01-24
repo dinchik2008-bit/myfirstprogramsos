@@ -1,0 +1,37 @@
+class StackNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedStack:
+    def __init__(self):
+        self.top = None
+    
+    def push(self, data):
+        new_node = StackNode(data)
+        new_node.next = self.top
+        self.top = new_node
+    
+    def pop(self):
+        if not self.top:
+            return None
+        data = self.top.data
+        self.top = self.top.next
+        return data
+    
+    def is_empty(self):
+        return self.top is None
+
+class QueueWithTwoStacks:
+    def __init__(self):
+        self.stack1 = LinkedStack()  # Для добавления
+        self.stack2 = LinkedStack()  # Для удаления
+    
+    def enqueue(self, data):
+        self.stack1.push(data)  # O(1)
+    
+    def dequeue(self):
+        if self.stack2.is_empty():
+            while not self.stack1.is_empty():
+                self.stack2.push(self.stack1.pop())
+        return self.stack2.pop()  # Амортизированная O(1)
